@@ -3,12 +3,11 @@ package cases;
 import bases.BaseTest;
 import okhttp3.Response;
 import org.testng.Assert;
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+import pojo.updetaSignPassWordPojo.UpdateSignPwdTestData;
+import utils.MakeRequestBodyStrUtil;
 import utils.OKHttpUtil;
 
-import java.lang.reflect.Method;
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -16,15 +15,15 @@ import java.util.Map;
  */
 public class UpdateSignPassWordTest extends BaseTest {
     @Test(dataProvider = "dataProvider")
-    public void updateSignPassWordpositiveTest(Map map){
-       Response response = OKHttpUtil.postMethod(baseTestURL + "/Home/UserCenterChangePassWord", map, "application/json;charset=UTF-8");
-        Assert.assertEquals(response.code(),200,"响应码不是200，密码修改失败！");
+    public void updateSignPassWordpositiveTest(String url, UpdateSignPwdTestData testData) {
+        Response response = OKHttpUtil.postMethod(baseTestURL + url, MakeRequestBodyStrUtil.makeFromReqStr(testData), "application/json;charset=UTF-8");
+        Assert.assertEquals(response.code(), testData.getAnAssert().getCode(), "响应码不是200，密码修改失败！");
+        Assert.assertEquals(response.message(),testData.getAnAssert().getMessage(),"响应消息不是OK，密码修改失败");
     }
 
     @Test(dataProvider = "dataProvider")
-    public void updateSignPassWordNegativeTest(Map map){
-        Response response = OKHttpUtil.postMethod(baseTestURL + "/Home/UserCenterChangePassWord", map, "application/json;charset=UTF-8");
+    public void updateSignPassWordNegativeTest(Map map) {
+       // Response response = OKHttpUtil.postMethod(baseTestURL + "/Home/UserCenterChangePassWord", map, "application/json;charset=UTF-8");
+
     }
-
-
 }
