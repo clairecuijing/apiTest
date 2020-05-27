@@ -22,8 +22,8 @@ public class UpdateSignPassWordTest extends BaseTest {
     }
 
     @Test(dataProvider = "dataProvider")
-    public void updateSignPassWordNegativeTest(Map map) {
-       // Response response = OKHttpUtil.postMethod(baseTestURL + "/Home/UserCenterChangePassWord", map, "application/json;charset=UTF-8");
+    public void updateSignPassWordNegativeTest(String url, UpdateSignPwdTestData testData) {
+       Response response = OKHttpUtil.postMethod(baseTestURL + url, MakeRequestBodyStrUtil.makeFromReqStr(testData), "application/json;charset=UTF-8");
 
     }
 }

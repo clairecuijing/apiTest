@@ -15,7 +15,7 @@ import java.lang.reflect.Type;
 
 
 public class BaseTest {
-    public static String baseTestURL = "";
+    public static String baseTestURL = "https://pro.schoolpal.cn";
 
     /**
      * 测试其他接口的前提是：首先需要登录
