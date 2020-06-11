@@ -4,6 +4,7 @@ import okhttp3.Response;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.DataProvider;
 import pojo.BasePojo;
+import pojo.updetaSignPassWordPojo.UpdateSignPwdTestData;
 import utils.MakeRequestBodyStrUtil;
 import utils.OKHttpUtil;
 import utils.ReadJsonUtil;
@@ -22,10 +23,9 @@ public class BaseTest {
      */
     @BeforeSuite
     public void baseTest() {
-        String s = MakeRequestBodyStrUtil.makeFromReqStr(ReadJsonUtil.readJsonToPojo("BaseTest/baseTest",new Type[]{pojo.base.BaseTest.class},BasePojo.class));
-
-       Response response = OKHttpUtil.postMethod(baseTestURL + "/sso/xb10/login?resumeUrl=%2fschoolpal%2fssosucceed&ssoFailedUrl=%2fschoolpal%2fssofailed",
-                s,
+        BasePojo bs =(BasePojo) ReadJsonUtil.readJsonToPojo("BaseTest/baseTest", new Type[]{pojo.base.BaseTest.class}, BasePojo.class);
+        String s = MakeRequestBodyStrUtil.makeFromReqStr(bs.getTestData()[0]);
+       Response response = OKHttpUtil.postMethod(baseTestURL+bs.getUrl() ,s,
                 "application/x-www-form-urlencoded");
 }
 
@@ -45,6 +45,7 @@ public class BaseTest {
         Class<?> type = parameters[parameterCount - 1].getType();
 
         BasePojo basePojo = ReadJsonUtil.readJsonToPojo(path, new Type[]{type}, BasePojo.class);
+        System.out.println(basePojo);
 
         String url = basePojo.getUrl();
         Object[] testData = basePojo.getTestData();
